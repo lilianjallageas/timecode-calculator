@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" ng-app="timecodeCalculator">
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="Timecode Converter and Calculator">
+		<meta name="keywords" content="Timecode, Timecodes, timecode, timecodes, Timecode Converter, Timecode Calculator, Timecodes Converter, Timecodes Calculator">
+		<meta name="author" content="Lilian Jallageas">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+		<title>Timecode Tools</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css">
+		<link rel="stylesheet" href="./app.css">
+		<link rel="icon" href="favicon.ico" type="image/x-icon">
+	</head>
+	<body>
+
+		<!-- Navigation Bar -->
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<a class="navbar-brand">Timecode Tools</a>
+			</div>
+		</nav>
+
+		<div class="col-lg-12">
+			<div class="row">
+				<!-- Timecode Tools -->
+				<uib-tabset justified="true" class="col-md-10">
+					<uib-tab index="0" heading="Timecodes Converter">
+						<br/>
+						<timecode-converter></timecode-converter>
+					</uib-tab>
+					<uib-tab index="1" heading="Timecodes Calculator">
+						<br/>
+						<timecode-calculator></timecode-calculator>
+					</uib-tab>
+				</uib-tabset>
+				<!-- Google Ads -->
+				<div class="col-md-2">
+					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+					<ins class="adsbygoogle"
+						style="display:block"
+						data-ad-client="ca-pub-9176408117099426"
+						data-ad-slot="1897763317"
+						data-ad-format="auto"></ins>
+					<script>
+					(adsbygoogle = window.adsbygoogle || []).push({});
+					</script>
+				</div>
+			</div>
+		</div>
+
+		<!-- Loading Scripts
+		NB: The order of the imports is important
+		================================================== -->
+		<!-- Placed at the end of the document so the page loads faster -->
+		
+		<!-- Vendors -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.1.3/ui-bootstrap-tpls.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> <!-- needs to be imported after JQuery -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+		<!-- Libraries -->
+		<script src="./timecode-converter.js"></script>
+		<!-- Application AngularJS -->
+		<script src="app.js"></script>
+		<script src="timecode-converter-directive.js"></script>
+		<script src="timecode-calculator-directive.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,141 @@
+<!-- Calculator -->
+<div class="col-md-4">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Calculator</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group" ng-hide="selectedFramerate">
+						<label>Number of Frames:</label>
+						<input type="number" min="0" class="form-control" placeholder="Nb. frames" ng-model="nbFrames" disabled>
+					</div>
+					<div class="form-group" ng-show="selectedFramerate">
+						<label>Timecode:</label>
+						<input type="text" class="form-control" placeholder="Timecode" ng-model="timecode" disabled>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Framerate:</label>
+						<div class="dropdown">
+							<button class="btn btn-default btn-block dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">
+								{{selectedFramerateLabel}}
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" ng-click="selectFramerate(null)">Number of Frames</a>
+								</li>
+								<li role="separator" class="divider"></li>
+								<li role="presentation" ng-repeat="fr in framerates">
+									<a role="menuitem" tabindex="-1" ng-click="selectFramerate(fr)">{{fr.label}}</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<br/>
+			<table class="table table-bordered">
+				<tr>
+					<td><button class="btn btn-default btn-block" ng-click="addNum(1)">1</button></td>
+					<td><button class="btn btn-default btn-block" ng-click="addNum(2)">2</button></td>
+					<td><button class="btn btn-default btn-block" ng-click="addNum(3)">3</button></td>
+				</tr>
+				<tr>
+					<td><button class="btn btn-default btn-block" ng-click="addNum(4)">4</button></td>
+					<td><button class="btn btn-default btn-block" ng-click="addNum(5)">5</button></td>
+					<td><button class="btn btn-default btn-block" ng-click="addNum(6)">6</button></td>
+				</tr>
+				<tr>
+					<td><button class="btn btn-default btn-block" ng-click="addNum(7)">7</button></td>
+					<td><button class="btn btn-default btn-block" ng-click="addNum(8)">8</button></td>
+					<td><button class="btn btn-default btn-block" ng-click="addNum(9)">9</button></td>
+				</tr>
+				<tr>
+					<td><button class="btn btn-default btn-block" ng-click="addOperation('-')">-</button></td>
+					<td><button class="btn btn-default btn-block" ng-click="addNum(0)">0</button></td>
+					<td><button class="btn btn-default btn-block" ng-click="addOperation('+')">+</button></td>
+				</tr>
+				<tr>
+					<td><button class="btn btn-default btn-block" ng-click="clearTimecode()">C</button></td>
+					<td colspan="2"><button class="btn btn-default btn-block" ng-click="calculate()">=</button></td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+</div>
+
+<!-- Operations -->
+<div class="col-md-4">
+	<div class="panel panel-default" ng-show="ops.length>0">
+		<div class="panel-heading">
+			<h3 class="panel-title">Operations</h3>
+		</div>
+		<table class="table">
+			<tbody>
+				<tr ng-repeat="op in ops">
+					<td>
+						<span ng-show="!op.timecode">
+							{{op.operator}} {{op.nbFrames}} frames
+						</span>
+						<span ng-show="op.timecode">
+							{{op.operator}} {{op.timecode}} at {{op.framerate.value}} fps (i.e. {{op.nbFrames}} frames)
+						</span>
+					</td>
+				</tr>
+				<tr ng-show="ops.length>1">
+					<td>
+						<b>Total:</b>&nbsp;{{ops[ops.length-1].subTotal}} frames
+						<button
+							class="btn btn-default btn-xs pull-right" aria-hidden="true" 
+							ng-click="clearCalculator()">
+							Clear Operations
+						</button> 
+				</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!-- Conversion of the total -->
+<div class="col-md-4">
+	<div class="panel panel-default" ng-show="ops.length>1">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				Converted Sum
+			</h3>
+		</div>
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<td><b>Frame Rate</b></td>
+					<td><b>Timecode</b></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-class="active">
+					<td>Number of Frames</td>
+					<td>{{ops[ops.length-1].subTotal}}</td>
+				</tr>
+				<tr ng-repeat="fr in framerates">
+					<td>
+						{{fr.label}}
+					</td>
+					<td>
+						{{formatTimecode(fr.timecode)}}
+						<span ng-if="fr.dropFrame" class="label label-default pull-right">Drop Frame</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
